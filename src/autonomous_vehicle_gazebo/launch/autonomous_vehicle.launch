@@ -1,0 +1,49 @@
+<launch>
+
+    <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+
+    <!--arg name="model" default="$(find autonomous_vehicle_description)/urdf/vehicle_model.urdf.xacro"/-->
+    
+    <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="world_name" value="$(find autonomous_vehicle_gazebo)/worlds/autonomous_vehicle.world"/>
+      <arg name="debug" value="$(arg debug)" />
+      <arg name="gui" value="$(arg gui)" />
+      <arg name="paused" value="$(arg paused)"/>
+      <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+      <arg name="headless" value="$(arg headless)"/>
+    </include>
+  
+    <param name="use_gui" value="$(arg gui)" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find autonomous_vehicle_description)/rviz/urdf.rviz" required="true" />
+
+    <!-- Load the URDF into the ROS Parameter Server -->
+    <!--param name="robot_description" command="$(find xacro)/xacro $(arg model)" /-->
+    <arg name="model" default="$(find autonomous_vehicle_description)/urdf/vehicle_modelV3.urdf.xacro"/>
+    <param name="robot_description_" command="$(find xacro)/xacro --inorder $(arg model) use_nominal_extrinsics:=true add_plug:=true" />
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher_camera">
+      <param name="publish_frequency" type="double" value="30.0" />
+    </node>
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+        args="-z 1.0 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" />
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher_control">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+
+    <!--node name="autonomous_vehicle" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -param robot_description -model autonomous_vehicle" /-->
+      
+
+
+  </launch>
+  

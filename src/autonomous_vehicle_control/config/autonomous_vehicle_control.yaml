@@ -1,0 +1,21 @@
+autonomous_vehicle_control:
+  joint_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  right_axle_controller:
+    type: position_controllers/JointPositionController
+    joint: axle_left_rotate_joint
+    pid: {p: 200, d: 1, i: 30}
+  left_axle_controller:
+    type: position_controllers/JointPositionController
+    joint: axle_right_rotate_joint
+    pid: {p: 200, d: 1, i: 30}
+  left_motor_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: RightWheel_joint
+    pid: {p: 200, d: 1, i: 30}
+  right_motor_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: LeftWheel_joint
+    pid: {p: 200, d: 1, i: 30}

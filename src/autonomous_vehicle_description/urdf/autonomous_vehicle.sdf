@@ -1,0 +1,326 @@
+<sdf version='1.7'>
+  <model name='vehicle'>
+    <link name='vehicle'>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>4</mass>
+        <inertia>
+          <ixx>0.163866</ixx>
+          <ixy>-0.00015</ixy>
+          <ixz>6.2e-05</ixz>
+          <iyy>0.418963</iyy>
+          <iyz>0</iyz>
+          <izz>0.582709</izz>
+        </inertia>
+      </inertial>
+      <collision name='vehicle_fixed_joint_lump__base_link_collision'>
+        <pose>0 0 0.2 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.53 0.14 0.01</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='vehicle_visual'>
+        <pose>0 0 0.2 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </visual>
+      <visual name='vehicle_fixed_joint_lump__base_link_visual_1'>
+        <pose>0 0 0.2 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://autonomous_vehicle_description/meshes/Base.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='axle_left_rotate_joint' type='revolute'>
+      <pose relative_to='vehicle'>-0.185 0.1025 0.2 0 -0 0</pose>
+      <parent>vehicle</parent>
+      <child>left_axle</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-0.35</lower>
+          <upper>0.35</upper>
+          <effort>1000</effort>
+          <velocity>0.5</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_axle'>
+      <pose relative_to='axle_left_rotate_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.01</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name='left_axle_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wheel_left_rotate_joint' type='revolute'>
+      <pose relative_to='left_axle'>0 0.0475 0 0 -0 0</pose>
+      <parent>left_axle</parent>
+      <child>LeftWheel_Front</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='LeftWheel_Front'>
+      <pose relative_to='wheel_left_rotate_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.073454</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.116212</iyy>
+          <iyz>0</iyz>
+          <izz>0.073454</izz>
+        </inertia>
+      </inertial>
+      <collision name='LeftWheel_Front_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.067</length>
+            <radius>0.062</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='LeftWheel_Front_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://autonomous_vehicle_description/meshes/LeftWheel.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='axle_right_rotate_joint' type='revolute'>
+      <pose relative_to='vehicle'>-0.185 -0.1025 0.2 0 -0 0</pose>
+      <parent>vehicle</parent>
+      <child>right_axle</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-0.35</lower>
+          <upper>0.35</upper>
+          <effort>1000</effort>
+          <velocity>0.5</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_axle'>
+      <pose relative_to='axle_right_rotate_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.01</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name='right_axle_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='wheel_right_rotate_joint' type='revolute'>
+      <pose relative_to='right_axle'>0 -0.0475 0 0 -0 0</pose>
+      <parent>right_axle</parent>
+      <child>RightWheel_Front</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='RightWheel_Front'>
+      <pose relative_to='wheel_right_rotate_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.073454</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.116212</iyy>
+          <iyz>0</iyz>
+          <izz>0.073454</izz>
+        </inertia>
+      </inertial>
+      <collision name='RightWheel_Front_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.067</length>
+            <radius>0.062</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='RightWheel_Front_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://autonomous_vehicle_description/meshes/RightWheel.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='LeftWheel_joint' type='revolute'>
+      <pose relative_to='vehicle'>0.185 0.15 0.2 0 -0 0</pose>
+      <parent>vehicle</parent>
+      <child>LeftWheel_Back</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='LeftWheel_Back'>
+      <pose relative_to='LeftWheel_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.073454</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.116212</iyy>
+          <iyz>0</iyz>
+          <izz>0.073454</izz>
+        </inertia>
+      </inertial>
+      <collision name='LeftWheel_Back_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.067</length>
+            <radius>0.062</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='LeftWheel_Back_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://autonomous_vehicle_description/meshes/LeftWheel.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='RightWheel_joint' type='revolute'>
+      <pose relative_to='vehicle'>0.185 -0.15 0.2 0 -0 0</pose>
+      <parent>vehicle</parent>
+      <child>RightWheel_Back</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='RightWheel_Back'>
+      <pose relative_to='RightWheel_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.073454</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.116212</iyy>
+          <iyz>0</iyz>
+          <izz>0.073454</izz>
+        </inertia>
+      </inertial>
+      <collision name='RightWheel_Back_collision'>
+        <pose>0 0 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.067</length>
+            <radius>0.062</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='RightWheel_Back_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://autonomous_vehicle_description/meshes/RightWheel.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <static>0</static>
+    <plugin name='gazebo_ros_control' filename='libgazebo_ros_control.so'>
+      <robotNamespace>/autonomous_vehicle</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </model>
+</sdf>
